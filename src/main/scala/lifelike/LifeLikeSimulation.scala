@@ -140,7 +140,16 @@ object LifeLikeSimulation extends JFXApp {
           }
           add(highLife, 0, 7)
 
-          add(new Text("Choose neighbourhood:"), 0, 8)
+          private val seeds = new RadioButton("Seeds") {
+            toggleGroup = modeGroup
+
+            handleEvent(ActionEvent.Action) {
+              _: ActionEvent => ruleProp.value = LifeLikeRule.Seeds
+            }
+          }
+          add(seeds, 0, 8)
+
+          add(new Text("Choose neighbourhood:"), 0, 9)
 
           private val nbGroup = new ToggleGroup
 
@@ -152,7 +161,7 @@ object LifeLikeSimulation extends JFXApp {
               _: ActionEvent => nbProp.value = Neighbourhood.MooreNeighbourhood
             }
           }
-          add(moore, 0, 9)
+          add(moore, 0, 10)
 
           private val vonNeumann = new RadioButton("Von Neumann neighborhood") {
             toggleGroup = nbGroup
@@ -161,7 +170,7 @@ object LifeLikeSimulation extends JFXApp {
               _: ActionEvent => nbProp.value = Neighbourhood.VonNeumannNeighbourhood
             }
           }
-          add(vonNeumann, 0, 10)
+          add(vonNeumann, 0, 11)
 
         }
 

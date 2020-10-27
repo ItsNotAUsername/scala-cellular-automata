@@ -38,4 +38,6 @@ object LifeLikeRule {
 
   case object HighLife extends LifeLikeRule(Seq(3, 6), Seq(2, 3))
 
+  case object Seeds extends LifeLikeRule(Seq(2), Seq.empty)
+
 }
