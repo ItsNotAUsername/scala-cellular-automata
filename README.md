@@ -7,3 +7,5 @@
 ![alt text](media/Seeds.gif)
 ## Forest-fire model
 ![alt text](media/ForestFire.gif)
+## Wire World
+![alt text](media/WireWorld.gif)
