@@ -1,45 +1,36 @@
 package model
 
-import scala.collection.mutable.{ Seq => MutSeq }
+trait Neighbourhood {
 
-sealed abstract class Neighbourhood {
-
-  val indices: MutSeq[(Int, Int)]
-
-  def neighbours[T](x: Int, y: Int, grid: MutSeq[MutSeq[T]]): MutSeq[T] = {
-    val rows = grid.length
-    val cols = grid.head.length
-    for {
-      (i, j) <- indices
-    } yield grid(checkBounds(x + i, rows))(checkBounds(y + j, cols))
-  }
-
-  def checkBounds(a: Int, b: Int): Int =
-    if (a < 0)
-      a + b
-    else if (a >= b)
-      a - b
-    else a
+  def neighbours(x: Int, y: Int): Seq[(Int, Int)]
 
 }
 
 object Neighbourhood {
 
-  case object MooreNeighbourhood extends Neighbourhood {
+  object Moore extends Neighbourhood {
 
-    val indices: MutSeq[(Int, Int)] = MutSeq(
-      (-1, -1), (-1,  0), (-1,  1),
-      ( 0, -1),           ( 0,  1),
-      ( 1, -1), ( 1,  0), ( 1,  1)
-    )
+    override def neighbours(x: Int, y: Int): Seq[(Int, Int)] =
+      Seq(
+        (x - 1, y - 1), (x, y - 1), (x + 1, y - 1),
+        (x - 1, y    ),             (x + 1, y    ),
+        (x - 1, y + 1), (x, y + 1), (x + 1, y + 1)
+      )
+
+    override def toString: String = "Moore"
 
   }
 
-  case object VonNeumannNeighbourhood extends Neighbourhood {
+  object VonNeumann extends Neighbourhood {
 
-    val indices: MutSeq[(Int, Int)] = MutSeq(
-      (-1, 0), (1, 0), (0, -1), (0, 1)
-    )
+    override def neighbours(x: Int, y: Int): Seq[(Int, Int)] =
+      Seq(
+                    (x, y - 1),
+        (x - 1, y),             (x + 1, y),
+                    (x, y + 1)
+      )
+
+    override def toString: String = "Von Neumann"
 
   }
 
